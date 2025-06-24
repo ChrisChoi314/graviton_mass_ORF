@@ -25,3 +25,5 @@ graviton_mass_ORF/
 ```
 
 IMPORTANT: in order to run the analysis, you want to make sure you have the necessary data. Simply download this folder https://github.com/nanograv/15yr_stochastic_analysis/tree/main/tutorials/data into the folder in this repository named 'data'. When you run file fig_2_nanograv.py, it will generate 3 .npy files and also download them into the data folder. Then the file  table_1_chi.py will use these npy files for its analysis, so that you don't have to generate them again, which is time consuming. 
+
+Note about packages: Honestly there are a ton of packages this project requires, most of them for the analysis of the NANOGrav 15-year data. Try your best to download the missing packages, but if it doesn't work, then don't worry. I have put the necessary data in the data folder, expertly exported into .npy files via file fig_2_nanograv.py so that you need not do it yourself. But it is really nice if you can get all of the packages working, makes generating figures for your paper very easy. 
