@@ -43,12 +43,12 @@ def hd(angseps):
     xx = 0.5 * (1-np.cos(angseps))
     return 1.5*xx*np.log(xx) - 0.25*xx + 0.5
 
-xii_mean = np.load('xii_mean.npy')
+xii_mean = np.load('data/xii_mean.npy')
 
-rho_avg = np.load('rho_avg.npy')
+rho_avg = np.load('data/rho_avg.npy')
 rho_avg = np.array(rho_avg)/normalizing_amp
 
-sig_avg = np.load('sig_avg.npy')
+sig_avg = np.load('data/sig_avg.npy')
 sig_avg = np.array(sig_avg)/normalizing_amp
 print(sig_avg)
 

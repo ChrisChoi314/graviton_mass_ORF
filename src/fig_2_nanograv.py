@@ -187,7 +187,9 @@ for ii in range(len(xii_bins) - 1):
     
 xii_mean = np.array(xii_mean)
 xii_err = np.array(xii_err)
-np.save('sig_avg.npy',sig_avg)
+np.save('data/xii_mean.npy',xii_mean)
+np.save('data/rho_avg.npy',rho_avg)
+np.save('data/sig_avg.npy',sig_avg)
                             
 
 (_, caps, _) = axs.errorbar(180/np.pi*xii_mean,
