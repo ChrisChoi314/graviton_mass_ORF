@@ -9,6 +9,7 @@ The jupyter notebook in this repository shows how all the figures in our paper w
 
 The structure is something like this: 
 
+```
 graviton_mass_ORF/
 ├── README.md                                   ← important info about this repo
 ├── data/                                       ← where you should download the nanograv data into
@@ -21,5 +22,6 @@ graviton_mass_ORF/
 │   ├── optimal_statistics_covariances.py       ← function file from https://github.com/nanograv/15yr_stochastic_analysis/tree/main/tutorials
 │   └── polarization_func.py                    ← function file that stores functions that i made
 └──figs/                                        ← where the figs will be saved when you run the files
+```
 
 If you are wondering what to download for the data, 
