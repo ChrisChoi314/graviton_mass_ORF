@@ -12,9 +12,9 @@ The structure is something like this:
 ```
 graviton_mass_ORF/
 ├── README.md                                   ← important info about this repo
-├── data/                                       ← various numpy arrays used in this project and the location for nanograv data
+├── data/                                       ← various numpy arrays used in this project and where NANOGrav15 data should be downloaded into
 ├── src/                                        ← python scripts that reproduce the plots
-│   ├── compute_extrema.py                                ← computes the extrema for the effective ORFs from MG  
+│   ├── compute_extrema.py                      ← computes the extrema for the effective ORFs from MG  
 │   ├── extra_functions.py                      ← function file from https://github.com/nanograv/
 │   ├── fig_1.py                                ← reproduces fig 1 
 │   ├── fig_2.py                                ← reproduces fig 2
