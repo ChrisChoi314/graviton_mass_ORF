@@ -1,11 +1,10 @@
-# Re-import necessary libraries after code execution environment reset
+from important_functions import *
 import matplotlib.ticker as mticker
 import math
 
 import glob, json, sys
 import matplotlib.pyplot as plt
 import numpy as np
-from polarization_func import *
 
 from enterprise.signals import parameter
 from enterprise.signals import utils
@@ -30,18 +29,11 @@ from optimal_statistic_covariances import OS, full_lstsq_recovery
 from enterprise_extensions.models import model_2a
 import matplotlib
 
-plt.rcParams["mathtext.fontset"] = "cm"
-plt.rcParams["font.family"] = "serif"
-
 theta = np.array([10, 23.1, 36.7, 48.7,63, 76, 89.3, 102.8, 116.3, 130.2, 142, 156.2, 168.2])
 correlation_coefficient = np.array([.14, .32 ,0.206, 0.059, -0.047, 0.004, -.013, 0.08, 0.004, 0.054, -0.009, -0.427, -0.195])
 y_error = np.array([0.114, 0.068,  0.068, 0.08, 0.101, 0.093, 0.105, 0.101, 0.101, 0.102, 0.114, 0.156, 0.199]) # This is half the total error bar length
 
 normalizing_amp =  4.501905414729434e-30
-
-def hd(angseps):
-    xx = 0.5 * (1-np.cos(angseps))
-    return 1.5*xx*np.log(xx) - 0.25*xx + 0.5
 
 xii_mean = np.load('xii_mean.npy')
 

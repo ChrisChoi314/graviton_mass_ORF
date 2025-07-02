@@ -9,8 +9,6 @@ def Gamma_0S_stationary(ratio, xi, beta_S):
     return (beta_S / 4) * 4 * np.pi / 15 * (-1 + 3 * np.cos(xi)**2)
 
 def Gamma_0S_full(ratio, xi, beta_S):
-    #if np.abs(ratio - 1) < 1e-6:
-    #    return Gamma_0T_relativistic(ratio, xi, beta_S)
     if np.abs(ratio) < 1e-6:
         return Gamma_0S_stationary(ratio, xi,beta_S)
     L_1 = (1 + 2*ratio**2*(1-2*np.cos(xi)) - ratio**4*(1 - 2*np.cos(xi)**2) - 2*ratio*(1-  ratio**2*np.cos(xi))*np.sqrt((1 - np.cos(xi))*(2-ratio**2*(1 + np.cos(xi))) ) )**2/(1-ratio**2)**4
@@ -37,8 +35,6 @@ def Gamma_0V_relativistic(ratio, xi, beta_V):
     return beta_V * 8 * np.pi * np.cos(xi)/(4*2*3*(1 - ratio**2))
 
 def Gamma_0V_full(ratio, xi, beta_V):
-    #if np.abs(ratio - 1) < .005:
-    #    return Gamma_0V_relativistic(ratio, xi, beta_V)
     if np.abs(ratio) < 1e-2:
         return Gamma_0V_stationary(ratio, xi, beta_V)
     L_1 = (1 + 2*ratio**2*(1-2*np.cos(xi)) - ratio**4*(1 - 2*np.cos(xi)**2) - 2*ratio*(1-  ratio**2*np.cos(xi))*np.sqrt((1 - np.cos(xi))*(2-ratio**2*(1 + np.cos(xi))) ) )**2/(1-ratio**2)**4
@@ -68,8 +64,6 @@ def Gamma_0T_relativistic(ratio, xi, beta_T):
     return beta_T/4*2*np.pi/3*(3 + np.cos(xi) + 6*(1 - np.cos(xi))*np.log((1-np.cos(xi))/2))
 
 def Gamma_0T_full(ratio, xi, beta_T):
-    #if np.abs(ratio - 1) < 1e-6:
-    #    return Gamma_0T_relativistic(ratio, xi, beta_T)
     if np.abs(ratio) < 1e-6:
         return Gamma_0T_stationary(ratio, xi, beta_T)
     L_1 = (1 + 2*ratio**2*(1-2*np.cos(xi)) - ratio**4*(1 - 2*np.cos(xi)**2) - 2*ratio*(1-  ratio**2*np.cos(xi))*np.sqrt((1 - np.cos(xi))*(2-ratio**2*(1 + np.cos(xi))) ) )**2/(1-ratio**2)**4
@@ -157,11 +151,7 @@ def Gamma_V_monte_carlo(beta_V, k_abs_k_0, xi, fL1, fL2, num_samples=150000):
     exp1 = np.exp(1j * 2 * np.pi * fL1 * (1 + (k_abs_k_0) * cos_theta)) - 1
     exp2 = np.exp(-1j * 2 * np.pi * fL2 * (1 + (k_abs_k_0) * (cos_theta * cos_xi + cos_phi * sin_theta * sin_xi))) - 1
 
-    #exp1 = 1
-    #exp2 = 1
-
     integrand_vals = integrand_expression_V(theta, phi, A, xi) * np.sin(theta) * exp1 * exp2
-    #integrand_vals = integrand_vals.astype(np.complex128)
 
 
     integral_avg = np.mean(integrand_vals)
@@ -225,3 +215,7 @@ def Gamma_S_monte_carlo(beta_S, k_abs_k_0, xi, fL1, fL2, num_samples=150000):
     prefactor = beta_S * (1 / 4) * (1 / 12)
     return prefactor * integral_avg * area
 
+# Hellings-Downs curve
+def hd(angseps):
+    xx = 0.5 * (1-np.cos(angseps))
+    return 1.5*xx*np.log(xx) - 0.25*xx + 0.5

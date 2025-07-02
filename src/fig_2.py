@@ -1,6 +1,8 @@
+from important_functions import *
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.lines import Line2D
+import glob, json, sys
 
 #if you want to compute the NANOGrav15 data points manually from the raw data, uncomment the following packages
 '''
@@ -26,12 +28,6 @@ import scipy.stats as scistats
 from optimal_statistic_covariances import OS, full_lstsq_recovery
 from enterprise_extensions.models import model_2a
 import matplotlib
-'''
-
-#if you want to compute the effective ORF from MG numerically using Monte-Carlo integration, uncomment the following packages
-'''
-import glob, json, sys
-from polarization_func import *
 '''
 
 plt.rcParams["mathtext.fontset"] = "cm"
@@ -64,11 +60,6 @@ leg.get_frame().set_facecolor("white")
 leg.get_frame().set_edgecolor("none")   
 leg.get_frame().set_alpha(1)      
 leg.set_zorder(10)        
-
-# Hellings-Downs curve
-def hd(angseps):
-    xx = 0.5 * (1-np.cos(angseps))
-    return 1.5*xx*np.log(xx) - 0.25*xx + 0.5
 
 #if you want to compute the NANOGrav15 data points manually from the raw data, uncomment the following lines. It will automatically save the data, so you only need to run it once.
 '''

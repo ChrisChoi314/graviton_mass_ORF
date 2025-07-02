@@ -1,10 +1,10 @@
+from important_functions import *
 import matplotlib.ticker as mticker
 import math
 
 import glob, json, sys
 import matplotlib.pyplot as plt
 import numpy as np
-from polarization_func import *
 import matplotlib
 import matplotlib.patches as mpatches
 from matplotlib.lines import Line2D
