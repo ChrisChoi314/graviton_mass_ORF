@@ -43,29 +43,22 @@ def hd(angseps):
     xx = 0.5 * (1-np.cos(angseps))
     return 1.5*xx*np.log(xx) - 0.25*xx + 0.5
 
-xii_mean = np.load('data/xii_mean.npy')
+xii_mean = np.load('xii_mean.npy')
 
-rho_avg = np.load('data/rho_avg.npy')
+rho_avg = np.load('rho_avg.npy')
 rho_avg = np.array(rho_avg)/normalizing_amp
 
-sig_avg = np.load('data/sig_avg.npy')
+sig_avg = np.load('sig_avg.npy')
 sig_avg = np.array(sig_avg)/normalizing_amp
-print(sig_avg)
 
 chi_NG_HD = np.sum(((rho_avg - hd(xii_mean)) / (sig_avg) )**2)                            
 
 chi_CP_HD = np.sum(((correlation_coefficient - hd(theta*np.pi/180.0)) / (y_error))**2 )
 
-# Define the values of |k|/k_0
 m = 1.31e-24
-f_min = 3.17e-10
-f_max = 8.27e-7
 conversion_factor = 6.5823e-16
 lightyear = 100*24*3600*365.25
-
-ratio_min = np.sqrt(1 -(m/ (2*np.pi*f_min*conversion_factor))**2)
-ratio_min = 1e-10
-ratio_max = np.sqrt(1 -(m/ (2*np.pi*f_max*conversion_factor))**2)
+norm = .5
 
 #assuming each mode is contributing equally
 omega_T = 1
@@ -73,54 +66,45 @@ omega_V = 1
 omega_S = .5
 beta_V = 1
 beta_S = 1
+beta_T = 1
 
 steps = 1000000
 
-# this is the normalization calculated for when |k|/k_0 = 0
-beta_T_min = 1/(2.965023154788142e-17)
-
-# this is the normalization calculated for the other freq
-beta_T_max = 1/11034649034.984184
-
-# Compute using Monte Carlo
-ratio = .1
+ratio = .01
 f_min = 1/np.sqrt(1 - ratio**2)*m/(2*np.pi) / conversion_factor
 fL1 = f_min*lightyear
 fL2 = f_min*lightyear
-beta_T = beta_T_min
-beta_T = 1/0.45
-beta_T = 1/1.8849527647214301*.5
-beta_T = 1/5.759871885918659e+36
-beta_T = 1/1.8849527647214301
-
-norm = .5
 
 xi_values = theta * np.pi / 180.0
 
-beta_T = 1/1.8849527647214301
+# if you want to compute the effective ORF from MG numerically using Monte-Carlo integration, uncomment the following lines
+'''
 gamma_min = np.array([Gamma_T_monte_carlo(beta_T, ratio, xi, fL1, fL2, steps) for xi in xi_values]) + omega_V / omega_T * beta_T / beta_V *np.array([Gamma_V_monte_carlo(beta_V, ratio, xi, fL1, fL2, steps) for xi in xi_values]) + omega_S / omega_T * beta_T / beta_S * np.array([Gamma_S_monte_carlo(beta_S, ratio, xi, fL1, fL2,steps) for xi in xi_values])
-
 normalization = gamma_min[0]
 gamma_min = gamma_min/normalization*norm
+'''
+gamma_min = np.load('gamma_min.npy')
 
 chi_CP_MG = np.sum(((correlation_coefficient - np.real(gamma_min)) / (y_error))**2)
 
 beta_T = 1/1.8849527647214301
-gamma_min_0 = Gamma_effective(ratio, xi_values, omega_S, omega_V, omega_T, beta_S,beta_V,beta_T)
-normalization = gamma_min_0[0]
-gamma_min_0 = gamma_min_0/normalization*norm
 
-ratio = .5
+norm = .5
+
+ratio = .61
 f_max = 1/np.sqrt(1 - ratio**2)*m/(2*np.pi) / conversion_factor
 fL1 = f_max*lightyear
 fL2 = f_max*lightyear
-beta_T = 1/7132591.489677116
 
 xi_values = xii_mean
 
+# if you want to compute the effective ORF from MG numerically using Monte-Carlo integration, uncomment the following lines
+'''
 gamma_max = np.array([Gamma_T_monte_carlo(beta_T, ratio, xi, fL1, fL2, steps) for xi in xi_values]) + omega_V / omega_T * beta_T / beta_V *np.array([Gamma_V_monte_carlo(beta_V, ratio, xi, fL1, fL2, steps) for xi in xi_values]) + omega_S / omega_T * beta_T / beta_S * np.array([Gamma_S_monte_carlo(beta_S, ratio, xi, fL1, fL2,steps) for xi in xi_values])
-normalization = gamma_max[0]
-gamma_max = gamma_max/normalization*norm
+#normalization = gamma_max[0]
+#gamma_max = gamma_max/normalization*norm
+'''
+gamma_max = np.load('gamma_max.npy')
 
 chi_NG_MG = np.sum(((rho_avg - np.real(gamma_max)) / (sig_avg))**2)
 
@@ -130,7 +114,7 @@ print(f'CPTA: chi^2_HD = {chi_CP_HD}')
 print(f'CPTA: chi^2_MG = {chi_CP_MG}')
 
 dof_HD = 13 - 0
-dof_MG = 13 - 2
+dof_MG = 13 - 1
 
 print(f'NANOGrav: chi^2_HD/dof = {chi_NG_HD/dof_HD}')
 print(f'NANOGrav: chi^2_MG/dof = {chi_NG_MG/dof_MG}')
