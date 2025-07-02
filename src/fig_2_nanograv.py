@@ -182,15 +182,12 @@ for ii in range(len(xii_bins) - 1):
     rho_avg_corr.append( hd_fac * Xmat * (ubin.T @ np.linalg.inv(Cbin) @ 
                                  rho_tmp) )
     sig_avg_corr.append( np.abs(hd_fac) * Xmat**0.5 )
-
-
     
 xii_mean = np.array(xii_mean)
 xii_err = np.array(xii_err)
 np.save('data/xii_mean.npy',xii_mean)
 np.save('data/rho_avg.npy',rho_avg)
 np.save('data/sig_avg.npy',sig_avg)
-                            
 
 (_, caps, _) = axs.errorbar(180/np.pi*xii_mean,
                             np.array(rho_avg)/normalizing_amp, 

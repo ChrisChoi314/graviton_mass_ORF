@@ -16,14 +16,8 @@ fig, ax = plt.subplots(1, 1, sharex=True, rasterized=True, constrained_layout = 
 
 # Defining important values
 m = 1.31e-24
-f_min = 3.17e-10
-f_max = 8.27e-7
 conversion_factor = 6.5823e-16
 lightyear = 100*24*3600*365.25
-
-ratio_min = np.sqrt(1 -(m/ (2*np.pi*f_min*conversion_factor))**2)
-ratio_min = 1e-10
-ratio_max = np.sqrt(1 -(m/ (2*np.pi*f_max*conversion_factor))**2)
 
 # assuming each mode is contributing equally
 omega_T = 1
@@ -46,9 +40,11 @@ fL2 = f_min*lightyear
 
 # Comment back in these lines if you want to numerically compute gamma_min directly using Monte-Carlo, otherwise we load from file
 
-#gamma_min = np.array([Gamma_T_monte_carlo(beta_T, ratio, xi, fL1, fL2, steps) for xi in xi_values]) + omega_V / omega_T * beta_T / beta_V *np.array([Gamma_V_monte_carlo(beta_V, ratio, xi, fL1, fL2, steps) for xi in xi_values]) + omega_S / omega_T * beta_T / beta_S * np.array([Gamma_S_monte_carlo(beta_S, ratio, xi, fL1, fL2,steps) for xi in xi_values])
-#normalization = gamma_min[0]
-#gamma_min = gamma_min/normalization*norm
+'''
+gamma_min = np.array([Gamma_T_monte_carlo(beta_T, ratio, xi, fL1, fL2, steps) for xi in xi_values]) + omega_V / omega_T * beta_T / beta_V *np.array([Gamma_V_monte_carlo(beta_V, ratio, xi, fL1, fL2, steps) for xi in xi_values]) + omega_S / omega_T * beta_T / beta_S * np.array([Gamma_S_monte_carlo(beta_S, ratio, xi, fL1, fL2,steps) for xi in xi_values])
+normalization = gamma_min[0]
+gamma_min = gamma_min/normalization*norm
+'''
 
 gamma_min = np.load('data/gamma_01.npy')
 
@@ -63,9 +59,11 @@ fL2 = f_max*lightyear
 
 # Comment back in these lines if you want to numerically compute gamma_max directly using Monte-Carlo, otherwise we load from file 
 
+'''
 #gamma_max = np.array([Gamma_T_monte_carlo(beta_T, ratio, xi, fL1, fL2, steps) for xi in xi_values]) + omega_V / omega_T * beta_T / beta_V *np.array([Gamma_V_monte_carlo(beta_V, ratio, xi, fL1, fL2, steps) for xi in xi_values]) + omega_S / omega_T * beta_T / beta_S * np.array([Gamma_S_monte_carlo(beta_S, ratio, xi, fL1, fL2,steps) for xi in xi_values])
 #normalization = gamma_max[0]
 #gamma_max = gamma_max/normalization*norm
+'''
 
 gamma_max = np.load(f'data/gamma_61.npy')
 
